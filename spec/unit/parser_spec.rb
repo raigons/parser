@@ -2,9 +2,9 @@ require 'spec_helper'
 
 describe "Parser" do
 
-	let :raw_message do
-		"09/12/2014, 21:37 - Ramon Henrique: Hello world"
-	end
+  let :raw_message do
+    "09/12/2014, 21:37 - Ramon Henrique: Hello world"
+  end
 
   let :raw_message_2 do
     "09/12/2014, 22:08 - Ramon Henrique: hello again!"
@@ -14,18 +14,18 @@ describe "Parser" do
     "09/12/2014, 22:08 - Matheus Gonçalves: Hi!"
   end
 
-	subject { WhatsAppParser::Parser.new }
+  subject { WhatsAppParser::Parser.new }
 
   context "single messages" do
-  	it "should parse a single message into objects" do
-  		parsed = subject.parse_message(raw_message)
-  		expect(parsed[:message]).to be_a_kind_of WhatsAppParser::Message
-  		expect(parsed[:message].content).to eq "Hello world"
+    it "should parse a single message into objects" do
+      parsed = subject.parse_message(raw_message)
+      expect(parsed[:message]).to be_a_kind_of WhatsAppParser::Message
+      expect(parsed[:message].content).to eq "Hello world"
       expect(parsed[:message].hour).to eq "21:37"
       expect(parsed[:message].date).to eq "09/12/2014"
-  		expect(parsed[:message].owner).to be_a_kind_of WhatsAppParser::Owner
+      expect(parsed[:message].owner).to be_a_kind_of WhatsAppParser::Owner
       expect(parsed[:message].owner.name).to eq "Ramon Henrique"
-  	end
+    end
 
     it "should parse messages with special chars" do
       message = "09/12/2014, 22:08 - Ramon Henrique: Hi, I wanna talk to you in 25/12/2014: test ;)"

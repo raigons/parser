@@ -1,5 +1,5 @@
 module WhatsAppParser
-	class Parser
+  class Parser
 
     def initialize
       initialize_regex_hash
@@ -9,15 +9,15 @@ module WhatsAppParser
       raw_messages.map { |raw_message| parse_message(raw_message) }
     end
 
-		def parse_message raw_message
-			{
-				message: WhatsAppParser::Message.new(
-									content: extract_content(raw_message),
+    def parse_message raw_message
+      {
+        message: WhatsAppParser::Message.new(
+                  content: extract_content(raw_message),
                   date: extract_date(raw_message),
                   hour: extract_hour(raw_message),
-									owner: extract_owner(raw_message))
-		  }
-		end
+                  owner: extract_owner(raw_message))
+      }
+    end
 
     private
 
@@ -50,5 +50,5 @@ module WhatsAppParser
         return WhatsAppParser::Owner.new(name: name)
       end
     end
-	end
+  end
 end

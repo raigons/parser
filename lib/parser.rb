@@ -5,6 +5,10 @@ module WhatsAppParser
       initialize_regex_hash
     end
 
+    def parse_messages raw_messages
+      raw_messages.map { |raw_message| parse_message(raw_message) }
+    end
+
 		def parse_message raw_message
 			{
 				message: WhatsAppParser::Message.new(
@@ -23,7 +27,7 @@ module WhatsAppParser
       @regex = {}
       regex[:date] = /[0-9]{2}\/[0-9]{2}\/[0-9]{4}/
       regex[:hour] = /\d+:\d+/
-      regex[:hour_and_author] = /#{regex[:hour]} - \w+:/
+      regex[:hour_and_author] = /#{regex[:hour]} - (.+?):/
       regex[:content] = /#{regex[:date]}, #{regex[:hour_and_author]} /
     end
 
@@ -36,7 +40,7 @@ module WhatsAppParser
     end
 
     def extract_content raw_message
-      raw_message.split(regex[:content]).reject(&:empty?).first
+      raw_message.split(regex[:content]).compact.reject(&:empty?).last
     end
 
     def extract_owner raw_message

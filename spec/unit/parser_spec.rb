@@ -18,22 +18,22 @@ describe "Parser" do
 
   context "single messages" do
     it "should parse a single message into objects" do
-      parsed = subject.parse_message(raw_message)
-      expect(parsed[:message]).to be_a_kind_of WhatsAppParser::Message
-      expect(parsed[:message].content).to eq "Hello world"
-      expect(parsed[:message].hour).to eq "21:37"
-      expect(parsed[:message].date).to eq "09/12/2014"
-      expect(parsed[:message].owner).to be_a_kind_of WhatsAppParser::Owner
-      expect(parsed[:message].owner.name).to eq "Ramon Henrique"
+      parsed = subject.parse_message(raw_message)[:message]
+      expect(parsed).to be_a_kind_of WhatsAppParser::Message
+      expect(parsed.content).to eq "Hello world"
+      expect(parsed.hour).to eq "21:37"
+      expect(parsed.date).to eq "09/12/2014"
+      expect(parsed.owner).to be_a_kind_of WhatsAppParser::Owner
+      expect(parsed.owner.name).to eq "Ramon Henrique"
     end
 
     it "should parse messages with special chars" do
       message = "09/12/2014, 22:08 - Ramon Henrique: Hi, I wanna talk to you in 25/12/2014: test ;)"
-      parsed = subject.parse_message(message)
-      expect(parsed[:message].date).to eq "09/12/2014"
-      expect(parsed[:message].hour).to eq "22:08"
-      expect(parsed[:message].content).to eq "Hi, I wanna talk to you in 25/12/2014: test ;)"
-      expect(parsed[:message].owner.name).to eq "Ramon Henrique"
+      parsed = subject.parse_message(message)[:message]
+      expect(parsed.date).to eq "09/12/2014"
+      expect(parsed.hour).to eq "22:08"
+      expect(parsed.content).to eq "Hi, I wanna talk to you in 25/12/2014: test ;)"
+      expect(parsed.owner.name).to eq "Ramon Henrique"
     end
 
     it "should parse correctly even if the message content includes dates and hours" do
@@ -52,6 +52,12 @@ describe "Parser" do
       expect(parsed.content).to eq "Hi Matheus Gonçalves: now is 10/12,2014, 13:35 - am I correct?"
       expect(parsed.owner.name).to eq "Ramon Henrique"
     end
+
+    it "should extract the message author as a standalone property" do
+      parsed = subject.parse_message(raw_message)[:author]
+      expect(parsed).to be_a_kind_of WhatsAppParser::Owner
+      expect(parsed.name).to eq "Ramon Henrique"
+    end
   end
 
   context "multiples messages" do
@@ -62,7 +68,7 @@ describe "Parser" do
       expect(parsed.last[:message].content).to eq "hello again!"
     end
 
-    it"should parse a list of messages from different authors" do
+    it "should parse a list of messages from different authors" do
       parsed = subject.parse_messages [raw_message, raw_message_3, raw_message_2]
       expect(parsed.count).to eq 3
       expect(parsed.first[:message].content).to eq "Hello world"

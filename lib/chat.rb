@@ -10,6 +10,13 @@ module WhatsAppParser
       participants[user.name][:messages] << message
     end
 
+    def add_messages messages
+      messages.each do |message|
+        add_participant message.author
+        add_message message, message.author
+      end
+    end
+
     def count_messages
       participants.map { |key, value| participants[key][:messages] }.flatten.count
     end
@@ -19,6 +26,8 @@ module WhatsAppParser
     end
 
     def add_participant participant
+      return if participants.has_key? participant.name
+
       participants[participant.name] = {
         participant: participant,
         messages: []

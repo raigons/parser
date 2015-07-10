@@ -1,7 +1,7 @@
 require 'spec_helper'
 
-describe "Owner" do
-  subject { WhatsAppParser::Owner.new name: "Ramon Henrique" }
+describe "Author" do
+  subject { WhatsAppParser::Author.new name: "Ramon Henrique" }
 
   it { should respond_to :name }
 

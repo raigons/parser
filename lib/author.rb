@@ -1,5 +1,5 @@
 module WhatsAppParser
-  class Owner
+  class Author
     attr_reader :name
 
     def initialize(fields={})

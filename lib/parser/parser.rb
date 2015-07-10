@@ -17,7 +17,7 @@ module WhatsAppParser
                   content: extract_content(raw_message),
                   date: extract_date(raw_message),
                   hour: extract_hour(raw_message),
-                  owner: author),
+                  author: author),
         author: author
       }
     end
@@ -50,7 +50,7 @@ module WhatsAppParser
       hour_and_message = raw_message[regex[:hour_and_author]]
       unless hour_and_message.nil?
         name = hour_and_message.split(Regexp.union(regex[:hour],/ - /)).compact.reject(&:empty?).first.chomp(":")
-        return WhatsAppParser::Owner.new(name: name)
+        return WhatsAppParser::Author.new(name: name)
       end
     end
   end

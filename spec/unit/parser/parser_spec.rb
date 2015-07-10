@@ -23,8 +23,8 @@ describe "Parser" do
       expect(parsed.content).to eq "Hello world"
       expect(parsed.hour).to eq "21:37"
       expect(parsed.date).to eq "09/12/2014"
-      expect(parsed.owner).to be_a_kind_of WhatsAppParser::Owner
-      expect(parsed.owner.name).to eq "Ramon Henrique"
+      expect(parsed.author).to be_a_kind_of WhatsAppParser::Author
+      expect(parsed.author.name).to eq "Ramon Henrique"
     end
 
     it "should parse messages with special chars" do
@@ -33,7 +33,7 @@ describe "Parser" do
       expect(parsed.date).to eq "09/12/2014"
       expect(parsed.hour).to eq "22:08"
       expect(parsed.content).to eq "Hi, I wanna talk to you in 25/12/2014: test ;)"
-      expect(parsed.owner.name).to eq "Ramon Henrique"
+      expect(parsed.author.name).to eq "Ramon Henrique"
     end
 
     it "should parse correctly even if the message content includes dates and hours" do
@@ -50,12 +50,12 @@ describe "Parser" do
       expect(parsed.date).to eq "01/12/2014"
       expect(parsed.hour).to eq "23:58"
       expect(parsed.content).to eq "Hi Matheus Gonçalves: now is 10/12,2014, 13:35 - am I correct?"
-      expect(parsed.owner.name).to eq "Ramon Henrique"
+      expect(parsed.author.name).to eq "Ramon Henrique"
     end
 
     it "should extract the message author as a standalone property" do
       parsed = subject.parse_message(raw_message)[:author]
-      expect(parsed).to be_a_kind_of WhatsAppParser::Owner
+      expect(parsed).to be_a_kind_of WhatsAppParser::Author
       expect(parsed.name).to eq "Ramon Henrique"
     end
   end

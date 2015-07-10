@@ -7,6 +7,6 @@ module WhatsAppParser
 
   autoload :Message, "#{ROOT}/lib/message"
   autoload :Chat, "#{ROOT}/lib/chat"
-  autoload :Owner, "#{ROOT}/lib/owner"
-  autoload :Parser, "#{ROOT}/lib/parser"
+  autoload :Author, "#{ROOT}/lib/author"
+  autoload :Parser, "#{ROOT}/lib/parser/parser"
 end

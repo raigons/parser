@@ -7,5 +7,5 @@ describe "WhatsAppParser::Message" do
   it { should respond_to :content }
   it { should respond_to :date }
   it { should respond_to :hour }
-  it { should respond_to :owner }
+  it { should respond_to :author }
 end

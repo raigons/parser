@@ -1,14 +1,15 @@
 module WhatsAppParser
   class ChatParser
-    def initialize(parser, messages)
-      @parser = parser
-      @raw_messages = messages
+    def initialize(args)
+      @parser = args.fetch(:parser)
+      @loader = args.fetch(:loader)
+      load_messages
       parse_messages
     end
 
     def parse_chat
       chat = WhatsAppParser::Chat.new
-      parsed.each do |parsed_message|
+      parsed.each_with_index do |parsed_message, index|
         chat.add_participant parsed_message[:author]
         chat.add_message parsed_message[:message], parsed_message[:author]
       end
@@ -21,10 +22,18 @@ module WhatsAppParser
 
     private
 
+    def load_messages
+      @loader.load_messages
+    end
+
     def parse_messages
       @parsed = parser.parse_messages(raw_messages)
     end
 
-    attr_reader :parser, :parsed, :raw_messages, :authors
+    def raw_messages
+      @raw_messages ||= @loader.messages
+    end
+
+    attr_reader :parser, :parsed, :authors
   end
 end

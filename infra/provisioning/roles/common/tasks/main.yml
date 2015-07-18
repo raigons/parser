@@ -1,2 +1,10 @@
 ---
 - apt: name=vim update_cache=yes
+
+- name: Exporting utf8 settings
+  lineinfile:
+    dest: /etc/environment
+    line: "{{ item }}"
+  with_items:
+    - LC_ALL=en_US.UTF-8
+    - LANG=en_US.UTF-8

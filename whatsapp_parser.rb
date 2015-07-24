@@ -11,4 +11,5 @@ module WhatsAppParser
   autoload :Parser, "#{ROOT}/lib/parser/parser"
   autoload :ChatParser, "#{ROOT}/lib/parser/chat_parser"
   autoload :Loader, "#{ROOT}/lib/loader"
+  autoload :Reports, "#{ROOT}/lib/report/reports"
 end

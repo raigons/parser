@@ -26,18 +26,22 @@ describe "HourCollector" do
     end
   end
 
+  describe "#create_intervals" do
+    it "should create a list of intervals given a list os hours sent" do
+      subject.create_intervals(messages.map { |message| message.hour })
+      expect(subject.intervals.count).to eq 4
+      expect(subject.intervals.values.first.interval).to eq "01;02"
+      expect(subject.intervals.values.last.interval).to eq "04;05"
+    end
+  end
+
   describe "#group_messages" do
     it "should group messages by hours regardless the date" do
-      group = subject.group_messages(messages)
+      subject.group_messages(messages)
 
-      expected_group = {
-        "01;02" => [messages[0..2]].flatten,
-        "02;03" => [messages[3]],
-        "03;04" => [messages[4..5]].flatten,
-        "04;05" => [messages[6]]
-      }
-
-      expect(group).to eq expected_group
+      expect(subject.intervals.keys).to eq ["01;02", "02;03", "03;04", "04;05"]
+      expect(subject.intervals["01;02"].count_messages).to eq 3
+      expect(subject.intervals["03;04"].count_messages).to eq 2
     end
   end
 end

@@ -13,4 +13,5 @@ module WhatsAppParser
   autoload :Loader, "#{ROOT}/lib/loader"
   autoload :Reports, "#{ROOT}/lib/report/reports"
   autoload :Collector, "#{ROOT}/lib/collectors/collectors"
+  autoload :Interval, "#{ROOT}/lib/interval"
 end

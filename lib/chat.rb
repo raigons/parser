@@ -17,6 +17,10 @@ module WhatsAppParser
       end
     end
 
+    def all_messages
+      participants.values.map { |participant_values| participant_values[:messages] }.flatten
+    end
+
     def count_messages
       participants.map { |key, value| participants[key][:messages] }.flatten.count
     end

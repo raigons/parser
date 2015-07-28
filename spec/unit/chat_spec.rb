@@ -95,4 +95,14 @@ describe "WhatsAppParser::Chat" do
       expect(subject.count_messages).to eq 1
     end
   end
+
+  describe "#all_messages" do
+    it "should return all messages from chat" do
+      subject.add_participants([ramon, matheus])
+      subject.add_message(message, ramon)
+      subject.add_message(message_2, matheus)
+
+      expect(subject.all_messages).to eq [message, message_2]
+    end
+  end
 end

@@ -1,12 +1,6 @@
 module WhatsAppParser
   module Collector
-    class HourCollector
-      attr_reader :intervals
-
-      def initialize
-        @intervals = {}
-      end
-
+    class HourCollector < Collector
       def group_messages(messages)
         create_intervals(messages.map { |m| m.hour })
 
@@ -16,14 +10,12 @@ module WhatsAppParser
         end
       end
 
-      def create_intervals(hours)
-        hours.each do |hour|
-          hour_range = hour_range(hour)
-          unless intervals.has_key? hour_range
-            lower_limit, upper_limit = hour_range.split(";")
-            intervals[hour_range] = WhatsAppParser::Interval.new lower: lower_limit, upper: upper_limit
-          end
-        end
+      def limits(range)
+        lower_limit, upper_limit = range.split ";"
+      end
+
+      def range(time)
+        hour_range(time)
       end
 
       def hour_range(time)

@@ -19,10 +19,10 @@ describe "HourCollector" do
 
   subject { WhatsAppParser::Collector::HourCollector.new }
 
-  describe "#hour_range" do
+  describe "#range" do
     it "should create an limit range according to the hour" do
-      expect(subject.hour_range("01:02")).to eq "01;02"
-      expect(subject.hour_range("02:00")).to eq "02;03"
+      expect(subject.range("01:02")).to eq "01;02"
+      expect(subject.range("02:00")).to eq "02;03"
     end
   end
 

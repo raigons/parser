@@ -18,6 +18,15 @@ module WhatsAppParser
           end
         end
       end
+
+      private
+
+        def fill_intervals(messages, param)
+          messages.each do |message|
+            range = range(message.send(param))
+            intervals[range].add_message message if intervals.has_key?range
+          end
+        end
     end
   end
 end

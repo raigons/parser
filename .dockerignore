@@ -1,0 +1,12 @@
+tmp/*
+log/*
+.git
+.capistrano/
+Capfile
+codecov.yml
+doc/
+Guardfile
+README.md
+deploy/
+infra/
+*Vagrant*
